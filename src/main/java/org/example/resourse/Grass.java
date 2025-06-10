@@ -1,0 +1,53 @@
+package org.example.resourse;
+
+import org.example.Entity;
+import org.example.map.GridGraph;
+import org.example.map.Node;
+
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Random;
+import java.util.Set;
+
+public class Grass extends Entity {
+
+
+    static Set<Grass> totalObject = new HashSet<>();
+
+    private static final char icon = '#';
+    private final Node place;
+
+    public Grass (Node place) {
+        this.place = place;
+    }
+
+    public static void initialize(GridGraph map) {
+        Random random = new Random();
+        Node inittialGrassNode = map.getNodeAt(random.nextInt(10), random.nextInt(10));
+        Grass grassObject = new Grass(inittialGrassNode);
+        totalObject.add(grassObject);
+        inittialGrassNode.setType(grassObject.getIcon());
+    }
+
+    public static void removeLast() {
+        Iterator<Grass> iterator = totalObject.iterator();
+        Grass lasElement = null;
+        if (iterator.hasNext()) {
+            lasElement = iterator.next();
+            iterator.remove();
+        }
+    }
+
+    public static int getSize() {
+        return totalObject.size();
+    }
+
+    public char getIcon () {
+        return icon;
+    }
+
+    public Node getPlace () {
+        return place;
+    }
+}
