@@ -52,7 +52,7 @@ public class Simulation {
             for (int x = 0; x < map.getWidth(); x++) {
                 Node node = map.getNodeAt(x, y);
                 if (node != null) {
-                    System.out.print(node.getType() + " ");
+                    System.out.print(node.getType().getSymbol() + " ");
                 } else {
                     System.out.print("? ");
                 }
@@ -68,7 +68,7 @@ public class Simulation {
         for (Herbivore herbivore: herbivoreList) {
             Node oldHerbivoreNode = herbivore.getCurrentNode();
             herbivore.makeMove(map);
-            oldHerbivoreNode.setType('.');
+            oldHerbivoreNode.setType(MapSymbol.EMPTY);
         }
         // передвижение всех хищников за один ход
 

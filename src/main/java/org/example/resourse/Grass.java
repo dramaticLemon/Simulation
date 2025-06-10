@@ -1,6 +1,7 @@
 package org.example.resourse;
 
 import org.example.Entity;
+import org.example.MapSymbol;
 import org.example.map.GridGraph;
 import org.example.map.Node;
 
@@ -15,7 +16,7 @@ public class Grass extends Entity {
 
     static Set<Grass> totalObject = new HashSet<>();
 
-    private static final char icon = '#';
+    private static final MapSymbol icon = MapSymbol.GRASS;
     private final Node place;
 
     public Grass (Node place) {
@@ -43,7 +44,7 @@ public class Grass extends Entity {
         return totalObject.size();
     }
 
-    public char getIcon () {
+    public MapSymbol getIcon () {
         return icon;
     }
 

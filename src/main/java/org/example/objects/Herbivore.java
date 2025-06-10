@@ -1,7 +1,7 @@
 package org.example.objects;
 
 import org.example.Creature;
-import org.example.Simulation;
+import org.example.MapSymbol;
 import org.example.map.GridGraph;
 import org.example.map.Node;
 import org.example.resourse.Grass;
@@ -19,10 +19,10 @@ import java.util.Random;
 public class Herbivore extends Creature {
     int speed;
     int HP;
-    private final char icon = '@';
+    private final MapSymbol icon = MapSymbol.HERBIVORE;
     private Node currentNode;
 
-    public char getIcon () {
+    public MapSymbol getIcon () {
         return icon;
     }
 
@@ -51,18 +51,18 @@ public class Herbivore extends Creature {
         List<Node> validMoves = new ArrayList<>();
 
         for (Node neighbor: possibleMoves) {
-            if (neighbor.getType() == '#') {
+            if (neighbor.getType() == MapSymbol.GRASS) {
                 grassNode = neighbor;
                 break;
             }
-            if (neighbor.getType() == '.') {
+            if (neighbor.getType() == MapSymbol.EMPTY) {
                 validMoves.add(neighbor);
             }
         }
 
         if (grassNode != null) {
             this.currentNode = grassNode;
-            grassNode.setType('.');
+            grassNode.setType(MapSymbol.EMPTY);
             this.currentNode.setType(this.icon);
             Grass.removeLast();
             return;

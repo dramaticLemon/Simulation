@@ -1,13 +1,14 @@
 package org.example.static_entity;
 
 import org.example.Entity;
+import org.example.MapSymbol;
 import org.example.map.GridGraph;
 import org.example.map.Node;
 
 import java.util.Random;
 
 public class Rock extends Entity {
-    private static final char icon = 'R';
+    private static final MapSymbol icon = MapSymbol.ROCK;
     private final Node place;
 
     public Rock (Node place) {
@@ -21,7 +22,7 @@ public class Rock extends Entity {
         inittialRockNode.setType(rock.getIcon());
     }
 
-    public char getIcon () {
+    public MapSymbol getIcon () {
         return icon;
     }
 
