@@ -12,19 +12,21 @@ import java.util.List;
 import java.util.Random;
 
 public class Simulation {
-    GridGraph map = new GridGraph(10, 10);
+    public static final int WIDTH = 20;
+    public static final int HEIGHT = 20;
+
+    GridGraph map = new GridGraph(WIDTH, HEIGHT);
     int moveCount = 0;
     static boolean runFlag = true;
 
 
-    private static final int MAX_COUNT_HERBIVORE = 5;
+    private static final int MAX_COUNT_HERBIVORE = 3;
     List<Herbivore> herbivoreList = new ArrayList<>();
 
-    private static final int MAX_COUNT_ROCK = 7;
-    private static final int MAX_COUNT_TREE = 4;
-    private static int MAX_COUNT_GRASS = 7;
+    private static final int MAX_COUNT_ROCK = 15;
+    private static final int MAX_COUNT_TREE = 15;
+    private static final int MAX_COUNT_GRASS = 10;
 
-    // это не пауза это завершить цикл
     public static void pauseSimulation() {
         runFlag = !runFlag;
     }
@@ -35,7 +37,7 @@ public class Simulation {
             System.out.println("Вечная симуляция");
             nextTurn();
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -52,7 +54,7 @@ public class Simulation {
             for (int x = 0; x < map.getWidth(); x++) {
                 Node node = map.getNodeAt(x, y);
                 if (node != null) {
-                    System.out.print(node.getType().getSymbol() + " ");
+                    System.out.printf("%-3s", node.getType().getSymbol());
                 } else {
                     System.out.print("? ");
                 }
@@ -70,10 +72,9 @@ public class Simulation {
             herbivore.makeMove(map);
             oldHerbivoreNode.setType(MapSymbol.EMPTY);
         }
+
         // передвижение всех хищников за один ход
-
         // проверить количество травоядных добавить если мало
-
 
         if (Grass.getSize() < MAX_COUNT_GRASS) {
             for (int i = 0; i < MAX_COUNT_GRASS - Grass.getSize(); i++) {
@@ -89,6 +90,10 @@ public class Simulation {
         placeCreatureOnTheMap();
     }
 
+
+    /**
+     * Инициализировать на карте траву, скалы и траву
+     */
     private void placeObjectsOnTheMap() {
 
         for (int i = 0; i < MAX_COUNT_TREE; i++) {
@@ -108,7 +113,7 @@ public class Simulation {
         Random random = new Random();
 
         for (int i = 1; i < MAX_COUNT_HERBIVORE; i++) {
-            Node inittialHerbivireNode = map.getNodeAt(random.nextInt(10), random.nextInt(10));
+            Node inittialHerbivireNode = map.getNodeAt(random.nextInt(Simulation.WIDTH), random.nextInt(Simulation.HEIGHT));
 
             if (inittialHerbivireNode == null) {
                 System.err.println("Ошибка: Начальная позиция для травоядного невалидна!");
@@ -120,6 +125,7 @@ public class Simulation {
             herbivoreList.add(herbivore);
             }
         }
+
         // расставить хищников
 }
 

@@ -2,6 +2,7 @@ package org.example.resourse;
 
 import org.example.Entity;
 import org.example.MapSymbol;
+import org.example.Simulation;
 import org.example.map.GridGraph;
 import org.example.map.Node;
 
@@ -24,8 +25,13 @@ public class Grass extends Entity {
     }
 
     public static void initialize(GridGraph map) {
+
         Random random = new Random();
-        Node inittialGrassNode = map.getNodeAt(random.nextInt(10), random.nextInt(10));
+
+        Node inittialGrassNode = null;
+        do {
+            inittialGrassNode = map.getNodeAt(random.nextInt(Simulation.WIDTH), random.nextInt(Simulation.HEIGHT));
+        } while (! inittialGrassNode.getType().equals(MapSymbol.EMPTY));
         Grass grassObject = new Grass(inittialGrassNode);
         totalObject.add(grassObject);
         inittialGrassNode.setType(grassObject.getIcon());
